@@ -277,8 +277,7 @@ def plot_loss(
     # plt.xticks(ticks, labels, rotation=45)
     plt.xticks(ticks, labels)
     # don't show the ticks on the x-axis
-    # really don't show
-    plt.tick_params(axis="x", colors="white", labelbottom=False)
+    plt.tick_params(axis="x", which="minor", labelsize=0)
 
 
     if (
