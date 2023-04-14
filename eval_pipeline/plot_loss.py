@@ -137,7 +137,9 @@ def plot_classification_loss(
     dfs = {csv_file.stem: pd.read_csv(csv_file, index_col=0) for csv_file in loss_csvs}
 
     if task_type == "classification_acc":
-        n_classes_per_example = np.array([len(literal_eval(str(x))) for x in data_df["classes"]])
+        n_classes_per_example = np.array(
+            [len(literal_eval(str(x))) for x in data_df["classes"]]
+        )
         # the baseline puts equal probability on each class, so we are considering a uniform distribution
         baseline = (1 / n_classes_per_example).mean()
         output_name = "correct"
@@ -149,7 +151,9 @@ def plot_classification_loss(
 
     # NOTE: the default plot type is now loss because that's what we ask for in the submission
     elif task_type == "classification_loss" or task_type == "classification":
-        n_classes_per_example = np.array([len(literal_eval(str(x))) for x in data_df["classes"]])
+        n_classes_per_example = np.array(
+            [len(literal_eval(str(x))) for x in data_df["classes"]]
+        )
         # the baseline puts equal probability on each class, so we are considering a uniform distribution
         baseline = (-np.log(1 / n_classes_per_example)).mean()
         output_name = "loss"
@@ -273,9 +277,15 @@ def plot_loss(
     # plt.xticks(ticks, labels, rotation=45)
     plt.xticks(ticks, labels)
     # don't show the ticks on the x-axis
-    plt.tick_params(axis="x", which="both", bottom=False, top=False, labelbottom=True)
+    # really don't show
+    plt.tick_params(axis="x", colors="white", labelbottom=False)
 
-    if task_type == "classification_loss" or task_type == "classification" or task_type == "sequence_prob":
+
+    if (
+        task_type == "classification_loss"
+        or task_type == "classification"
+        or task_type == "sequence_prob"
+    ):
         plt.yscale("log")
         plt.ylabel("Loss")
         title = "Log-log plot of loss vs model size"
@@ -283,7 +293,7 @@ def plot_loss(
         # always show full range of accuracies
         plt.ylim(-0.02, 1.02)
         plt.ylabel("Accuracy")
-        title = "Log plot of accuracy vs model size"
+        title = "Plot of accuracy vs model"
     elif task_type == "numeric":
         # plt.yscale("log")
         title = "Numeric plot style"
@@ -298,12 +308,14 @@ def plot_loss(
         raise ValueError(f"Unknown task type {task_type}")
     if invert:
         title += " (inverted)"
-    
+
     # NOTE: this printing will be messed up if using multiple numbers of examples
     if average_coverages is not None:
         coverages = average_coverages[0]
         for model, coverage in coverages[0].items():
-            print(f"For the model '{model}', the class labels got {coverage * 100:0.2f}% of the probability mass")
+            print(
+                f"For the model '{model}', the class labels got {coverage * 100:0.2f}% of the probability mass"
+            )
 
     plt.title(title)
     plt.legend()
