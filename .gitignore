@@ -7,3 +7,4 @@ temp.cache
 raw_data/imdb
 raw_data/anli
 raw_data/boolq/train.jsonl
+.idea

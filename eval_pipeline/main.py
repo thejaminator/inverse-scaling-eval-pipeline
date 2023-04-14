@@ -206,6 +206,8 @@ def parse_args(args):
             "text-babbage-001",
             "text-curie-001",
             "text-davinci-001",
+            "text-davinci-002",
+            "text-davinci-003",
             "opt-125m",
             "opt-350m",
             "opt-1.3b",

@@ -58,7 +58,18 @@ valid_hf_models: tuple[ValidHFModel, ...] = get_args(ValidHFModel)
 
 # NOTE: due to limitations of get_args with nested Literals, we have to call it
 # multiple times
-valid_gpt3_models: tuple[OpenAIModel, ...] = [x for li in get_args(OpenAIModel) for x in get_args(li)]  # type: ignore
+valid_gpt3_models: tuple[OpenAIModel, ...] = [
+    "ada",
+    "babbage",
+    "curie",
+    "davinci",
+    "text-ada-001",
+    "text-babbage-001",
+    "text-curie-001",
+    "text-davinci-001",
+    "text-davinci-002",
+    "text-davinci-003",
+]
 
 Device = Literal["cuda:0", "cpu"]
 
