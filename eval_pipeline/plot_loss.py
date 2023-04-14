@@ -269,9 +269,11 @@ def plot_loss(
     )
 
     plt.xscale("log")
-    plt.xlabel("Model size")
+    plt.xlabel("Model")
     # plt.xticks(ticks, labels, rotation=45)
     plt.xticks(ticks, labels)
+    # don't show the ticks on the x-axis
+    plt.tick_params(axis="x", which="both", bottom=False, top=False, labelbottom=True)
 
     if task_type == "classification_loss" or task_type == "classification" or task_type == "sequence_prob":
         plt.yscale("log")
